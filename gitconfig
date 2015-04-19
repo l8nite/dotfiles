@@ -10,3 +10,5 @@
   cleanup = ! git remote prune origin && git branch --merged | grep -v "\\*" | grep -v master | grep -v develop | xargs -n 1 git branch -d
   remote-cleanup = ! git remote prune origin && git checkout develop && git pull && git remote update --prune | git branch -r --merged | grep -v develop | grep -v master | sed -e 's/origin\\//:/' | xargs git push origin
   unstage = reset HEAD --
+[credential]
+	helper = cache --timeout=604800
