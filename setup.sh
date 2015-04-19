@@ -59,4 +59,10 @@ if [ ! -d ~/.goenv ]; then
   git clone https://github.com/wfarr/goenv.git ~/.goenv
 fi
 
+backup ~/.irssi/config
+if [ ! -d ~/.irssi ]; then
+  mkdir -p ~/.irssi
+fi
+ln -s ~/dotfiles/irssi.config ~/.irssi/config
+
 echo 'remember to . ~/.bash_profile'
