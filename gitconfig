@@ -8,7 +8,9 @@
 	editor = vim
 [alias]
   cleanup = ! git remote prune origin && git branch --merged | grep -v "\\*" | grep -v master | grep -v develop | xargs -n 1 git branch -d
-  remote-cleanup = ! git remote prune origin && git checkout develop && git pull && git remote update --prune | git branch -r --merged | grep -v develop | grep -v master | sed -e 's/origin\\//:/' | xargs git push origin
+  remote-cleanup = ! git remote prune origin && git checkout master && git pull && git remote update --prune | git branch -r --merged | grep -v develop | grep -v master | sed -e 's/origin\\//:/' | xargs git push origin
   unstage = reset HEAD --
+  remaster = ! git checkout develop && git branch --set-upstream-to=origin/develop develop && git pull && git checkout master && git branch --set-upstream-to=origin/master master && git pull && git merge develop && git push && git push origin :develop
+  refresh = ! git checkout master && git pull && git checkout develop && git pull --rebase
 [credential]
 	helper = cache --timeout=604800
