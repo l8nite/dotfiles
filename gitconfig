@@ -14,3 +14,7 @@
   refresh = ! git checkout master && git pull && git checkout develop && git pull --rebase
 [credential]
 	helper = cache --timeout=604800
+[branch]
+	autosetuprebase = always
+[pull]
+	rebase = true
