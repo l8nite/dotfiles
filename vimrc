@@ -2,7 +2,7 @@
 let mapleader=","
 
 " save keystrokes
-nnoremap ; : 
+nnoremap ; :
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -26,6 +26,10 @@ Plugin 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 
 Plugin 'L9'
+
+Plugin 'fatih/vim-go'
+
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 
 Bundle 'vim-ruby/vim-ruby'
 
@@ -61,6 +65,11 @@ Bundle 'kchmck/vim-coffee-script'
 
 Bundle 'jamessan/vim-gnupg'
 
+" mustang color theme
+Bundle 'croaker/mustang-vim'
+
+" solarized color theme
+Bundle 'altercation/vim-colors-solarized'
 
 " git repos on your local machine (i.e. when working on your own plugin)
 " Plugin 'file:///home/gmarik/path/to/plugin'
@@ -83,7 +92,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-filetype plugin indent on
 syntax on
 
 set encoding=utf8
@@ -128,11 +136,11 @@ nmap Q gqap
 cmap w!! w !sudo tee % >/dev/null
 
 if &t_Co >= 256 || has("gui_running")
-  colorscheme mustang
+  silent! colorscheme mustang
 endif
 
 " trailing whitespace killer
-autocmd FileType c,cpp,java,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,eruby,java,markdown,php,ruby,sh,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " auto-sign gpg files
 autocmd User GnuPG let b:GPGOptions += ["sign"]

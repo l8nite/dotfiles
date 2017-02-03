@@ -1,11 +1,8 @@
-if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
-fi
-
 # Note: ~/.ssh/environment should not be used, as it
 #       already has a different purpose in SSH.
 
-env=~/.ssh/agent.env
+ssh_agent_env=~/.ssh/agent.env
+mkdir -p ~/.ssh
 
 # Note: Don't bother checking SSH_AGENT_PID. It's not used
 #       by SSH itself, and it might even be incorrect
@@ -27,12 +24,14 @@ agent_has_keys() {
 }
 
 agent_load_env() {
-    . "$env" >/dev/null
+    if [[ -f $ssh_agent_env ]]; then
+      . "$ssh_agent_env" >/dev/null
+    fi
 }
 
 agent_start() {
-    (umask 077; ssh-agent >"$env")
-    . "$env" >/dev/null
+    (umask 077; ssh-agent >"$ssh_agent_env")
+    . "$ssh_agent_env" >/dev/null
 }
 
 if ! agent_is_running; then
@@ -48,7 +47,14 @@ elif ! agent_has_keys; then
     ssh-add
 fi
 
-unset env
+unset ssh_agent_env
 
 GPG_TTY=$(tty)
 export GPG_TTY
+
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+      . "$HOME/.bashrc"
+    fi
+fi
