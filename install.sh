@@ -2,8 +2,13 @@
 set -e
 
 backup () {
-  if [[ -e "$1" ]]; then
+  # if it exists and isn't a symbolic link
+  if [[ -e "$1" && ! -h "$1" ]]; then
     mv $1 $1.`date +%Y%m%dT%H%M`
+  fi
+
+  if [[ -h "$1" ]]; then
+    rm "$1"
   fi
 }
 
@@ -22,35 +27,39 @@ setup_vim() {
   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
   # Link maximum-awesome's vim configuration files
+  backup ~/.vimrc
   ln -s ~/.maximum-awesome/vimrc ~/.vimrc
+
+  backup ~/.vimrc.bundles
   ln -s ~/.maximum-awesome/vimrc.bundles ~/.vimrc.bundles
 
   # Install maximum-awesome's plugins and snippets
   cp -R ~/.maximum-awesome/vim/* ~/.vim/
 
   # Link my own .local configurations
+  backup ~/.vimrc.local
   ln -s ~/.dotfiles/vimrc.local ~/.vimrc.local
+
+  backup ~/.vimrc.bundles.local
   ln -s ~/.dotfiles/vimrc.bundles.local ~/.vimrc.bundles.local
 
   # Install the vim plugins
-  vim +PluginInstall +qall now
+  vim +PluginInstall +qall now &>/dev/null
 }
 
 setup_tmux() {
-  # Make a backup of ~/.tmux.conf
-  backup ~/.tmux.conf
-
   # Link maximum-awesome's tmux configuration files
+  backup ~/.tmux.conf
   ln -s ~/.maximum-awesome/tmux.conf ~/.tmux.conf
 
   # Link my own .local configurations
+  backup ~/.tmux.conf.local
   ln -s ~/.dotfiles/tmux.conf.local ~/.tmux.conf.local
 }
 
 setup_bash_aliases() {
-  backup ~/.bash_aliases
-
   # This script assumes the default .bashrc reads this file
+  backup ~/.bash_aliases
   ln -s ~/.dotfiles/bash_aliases ~/.bash_aliases
 }
 
@@ -59,6 +68,7 @@ setup_bashrc() {
 }
 
 setup_git_prompt() {
+  backup ~/.git-prompt.sh
   curl -s -o ~/.git-prompt.sh \
       https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 }
