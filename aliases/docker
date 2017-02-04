@@ -1,0 +1,61 @@
+alias dr='docker run --rm -it'
+
+function docker-ip {
+  if [[ -n "$@" ]]; then
+    docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+  else
+    docker ps -a | tail -n +2 | while read -a a; do
+      name=${a[$((${#a[@]}-1))]}
+      echo -ne "$name\t"
+      docker inspect --format '{{ .NetworkSettings.IPAddress }}' $name
+    done
+  fi
+}
+
+# Remove all exited containers except those with label=persistent
+# Remove all dangling images
+# Remove orphaned volumes
+#
+# Modified from:
+# http://stackoverflow.com/questions/17236796/how-to-remove-old-docker-containers
+#
+# NOTE: This only works on Docker 1.9 due to the "docker volume ls" commands
+function docker-cleanup {
+  EXITED=($(docker ps -a -q -f status=exited))
+  PERSISTENT=($(docker ps -a -q -f label=persistent))
+  DANGLING_IMAGES=($(docker images -a -q -f dangling=true))
+  DANGLING_VOLUMES=($(docker volume ls -qf dangling=true))
+
+  # exclude any PERSISTENT container ids
+  for i in "${PERSISTENT[@]}"; do
+    EXITED=(${EXITED[@]//*$i*})
+  done
+
+  if [ "$1" == "--dry-run" ]; then
+    echo "==> Would remove containers:"
+    echo ${EXITED[@]}
+    echo "==> And images:"
+    echo ${DANGLING_IMAGES[@]}
+    echo "==> And volumes:"
+    echo ${DANGLING_VOLUMES[@]}
+  else
+    if [ -n "$EXITED" ]; then
+      echo "Removing exited containers that don't have label=persistent..."
+      docker rm ${EXITED[@]}
+    else
+      echo "No containers to remove."
+    fi
+    if [ -n "$DANGLING_IMAGES" ]; then
+      echo "Removing dangling images..."
+      docker rmi ${DANGLING_IMAGES[@]}
+    else
+      echo "No images to remove."
+    fi
+    if [ -n "$DANGLING_VOLUMES" ]; then
+      echo "Removing dangling volumes..."
+      docker volume rm ${DANGLING_VOLUMES[@]}
+    else
+      echo "No volumes to remove."
+    fi
+  fi
+}

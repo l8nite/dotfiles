@@ -1,26 +1,7 @@
-alias v=vim
-alias vi=vim
-alias ga="git add"
-alias gu="git unstage"
-alias gc="git commit"
-alias gs="git status"
-alias gco="git checkout"
-alias gd="git diff -b"
-alias gds="git diff --staged -b"
-alias cap="bundle exec cap"
-alias rake="bundle exec rake"
-alias guard="bundle exec guard"
-alias rackup="bundle exec rackup"
-alias rspec="bundle exec rspec"
-alias rubocop="bundle exec rubocop"
-alias spring="bundle exec spring"
-alias rails="bundle exec rails"
-alias ag="ack-grep --ignore-dir coverage --ignore-dir log --ignore-dir tmp"
-alias proxy="http_proxy='http://10.0.2.2:8888'"
-alias tml="tmux list-sessions"
-alias tma="tmux -2 attach -t $1"
-alias tmk="tmux kill-session -t $1"
-alias prs="proxy rails s -b 0.0.0.0"
+source ~/.dotfiles/aliases/docker
+source ~/.dotfiles/aliases/git
+source ~/.dotfiles/aliases/ruby
+source ~/.dotfiles/aliases/tmux
 
-alias sshj1="ssh -i ~/.ssh/jenkins-master.key jenkins_slave@10.27.128.231"
-alias rbl='cp ~/pf-ruby-style/rubocop.yml .rubocop.yml'
+# This needs to be last, allows tab-expansion on aliases
+source ~/.dotfiles/aliases/alias-completion

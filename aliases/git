@@ -1,0 +1,4 @@
+alias gi='git init && git commit --allow-empty -m "Empty commit"'
+alias gs="git status"
+alias gd="git diff -b"
+alias gds="git diff --staged -b"

@@ -1,11 +1,9 @@
-if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
-fi
+# This script ensures your SSH agent is running and has loaded
+# your keys from ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub
 
 # Note: ~/.ssh/environment should not be used, as it
 #       already has a different purpose in SSH.
-
-env=~/.ssh/agent.env
+ssh_agent_env=~/.ssh-agent.env
 
 # Note: Don't bother checking SSH_AGENT_PID. It's not used
 #       by SSH itself, and it might even be incorrect
@@ -27,12 +25,14 @@ agent_has_keys() {
 }
 
 agent_load_env() {
-    . "$env" >/dev/null
+    if [[ -f $ssh_agent_env ]]; then
+      . "$ssh_agent_env" >/dev/null
+    fi
 }
 
 agent_start() {
-    (umask 077; ssh-agent >"$env")
-    . "$env" >/dev/null
+    (umask 077; ssh-agent >"$ssh_agent_env")
+    . "$ssh_agent_env" >/dev/null
 }
 
 if ! agent_is_running; then
@@ -48,7 +48,4 @@ elif ! agent_has_keys; then
     ssh-add
 fi
 
-unset env
-
-GPG_TTY=$(tty)
-export GPG_TTY
+unset ssh_agent_env
