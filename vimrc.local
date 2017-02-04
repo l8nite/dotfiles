@@ -46,5 +46,5 @@ cmap w!! w !sudo tee % >/dev/null
 " strip trailing whitespace on a bunch of common file types
 " Note: *.rb is handled by maximm-awesome
 augroup whitespace
-  autocmd FileType c,cpp,eruby,java,markdown,php,ruby,sh,yml autocmd BufWritePre <buffer> call whitespace#strip_trailing()
+  autocmd FileType bash,c,cpp,eruby,java,markdown,php,ruby,sh,yml autocmd BufWritePre <buffer> call whitespace#strip_trailing()
 augroup END
