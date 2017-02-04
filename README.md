@@ -2,7 +2,8 @@ dotfiles
 ========
 
 A set of configuration files for vim, tmux, ssh, etc.
-Built around [maximum-awesome][https://github.com/square/maximum-awesome]
+
+Built around [maximum-awesome](https://github.com/square/maximum-awesome)
 
 Installation
 ===
