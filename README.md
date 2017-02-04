@@ -9,5 +9,5 @@ Installation
 
 ```
 git clone https://github.com/l8nite/dotfiles ~/.dotfiles/
-~/.dotfiles/bin/install.sh
+~/.dotfiles/install.sh
 ```
