@@ -1,6 +1,10 @@
 source ~/.git-prompt.sh
 source ~/.dotfiles/ssh-agent
 
+if [[ -f /usr/local/src/zfsnap/completion/zfsnap-completion.bash ]]; then
+  source /usr/local/src/zfsnap/completion/zfsnap-completion.bash
+fi
+
 GPG_TTY=$(tty)
 export GPG_TTY
 
