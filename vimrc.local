@@ -35,7 +35,7 @@ silent! autocmd VimEnter * RemoveConflictingAlignMaps
 
 set showmatch     " show matching parentheses
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
-set nonumber      " I don't like line numbers
+"set nonumber      " I don't like line numbers
 
 " Sign  *.gpg files automatically
 autocmd User GnuPG let b:GPGOptions += ["sign"]
