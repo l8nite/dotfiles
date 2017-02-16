@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+if [[ "$DIR" != "$HOME/.dotfiles" ]]; then
+  echo "You forgot to clone this repository into ~/.dotfiles (instead of: ${DIR})"
+  exit 1
+fi
+
 backup () {
   # if it exists and isn't a symbolic link
   if [[ -e "$1" && ! -h "$1" ]]; then
