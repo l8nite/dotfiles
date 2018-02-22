@@ -51,6 +51,7 @@ setup_vim() {
   ln -s ~/.dotfiles/vimrc.bundles.local ~/.vimrc.bundles.local
 
   # Install the vim plugins
+  echo "Installing vim plugins, this takes a while..."
   vim +PluginInstall +qall now &>/dev/null
 }
 
