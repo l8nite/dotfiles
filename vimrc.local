@@ -34,8 +34,8 @@ command! -nargs=0 RemoveConflictingAlignMaps call s:RemoveConflictingAlignMaps()
 silent! autocmd VimEnter * RemoveConflictingAlignMaps
 
 set showmatch     " show matching parentheses
-set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
-"set nonumber      " I don't like line numbers
+"set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+set nonumber      " I don't like line numbers
 
 " Sign  *.gpg files automatically
 autocmd User GnuPG let b:GPGOptions += ["sign"]
@@ -48,3 +48,7 @@ cmap w!! w !sudo tee % >/dev/null
 augroup whitespace
   autocmd FileType bash,c,cpp,eruby,java,markdown,php,ruby,sh,yml autocmd BufWritePre <buffer> call whitespace#strip_trailing()
 augroup END
+
+au BufNewFile,BufRead Jenkinsfile setf groovy
+
+set noignorecase  " I hate this.

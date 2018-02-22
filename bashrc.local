@@ -9,3 +9,9 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 export EDITOR=vim
+
+alias cdep="ssh -A 10.27.128.181"
+alias cdep_stg="ssh -A 10.24.208.164"
+alias cdep_prd="ssh -A 10.25.56.31"
+
+function kn-cb-upload { command knife cookbook upload --freeze -o . $*; }

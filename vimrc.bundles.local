@@ -1,3 +1,4 @@
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'jamessan/vim-gnupg'
+Plugin 'kburdett/vim-nuuid'
