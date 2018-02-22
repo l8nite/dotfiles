@@ -1,3 +1,5 @@
+alias ag="ack-grep --ignore-dir coverage --ignore-dir log --ignore-dir tmp"
+
 source ~/.dotfiles/aliases/docker
 source ~/.dotfiles/aliases/git
 source ~/.dotfiles/aliases/ruby

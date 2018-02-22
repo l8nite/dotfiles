@@ -15,3 +15,9 @@ alias cdep_stg="ssh -A 10.24.208.164"
 alias cdep_prd="ssh -A 10.25.56.31"
 
 function kn-cb-upload { command knife cookbook upload --freeze -o . $*; }
+
+# WSL stuff
+if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+  export DOCKER_HOST=tcp://0.0.0.0:2375
+  sudo mount --bind /mnt/c /c
+fi
