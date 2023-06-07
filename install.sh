@@ -20,11 +20,11 @@ backup () {
 }
 
 # Install some packages we need
-sudo apt-get install curl git vim
+# sudo apt-get install curl git vim
 
 # Install maximum-awesome
-rm -rf ~/.maximum-awesome
-git clone https://github.com/square/maximum-awesome ~/.maximum-awesome
+#rm -rf ~/.maximum-awesome
+#git clone https://github.com/square/maximum-awesome ~/.maximum-awesome
 
 setup_vim() {
   # Make a backup of ~/.vim
@@ -97,8 +97,8 @@ setup_ssh_config() {
 }
 
 setup_vim
-setup_tmux
-setup_bash_aliases
-setup_bashrc
-setup_git_prompt
-setup_gitconfig
+#setup_tmux
+#setup_bash_aliases
+#setup_bashrc
+#setup_git_prompt
+#setup_gitconfig
